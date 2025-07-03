@@ -45,6 +45,4 @@ app.get('/', (req, res) => {
   res.send('API: Review de Jogos')
 })
 
-app.listen(port, () => {
-  console.log(`Servidor a correr na porta: ${port}`)
-})
+export default app; // Adicione no final e remova app.listen()
