@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+model Genero {
+  id    Int    @id @default(autoincrement())
+  nome  String @db.VarChar(30)
+  jogos Jogo[]
+
+  @@map("generos")
+}
+
+model Jogo {
+  id             Int         @id @default(autoincrement())
+  nome           String      @db.VarChar(60)
+  ano            Int         @db.SmallInt
+  desenvolvedora String      @db.VarChar(30)
+  publicadora    String      @db.VarChar(30)
+  foto           String
+  descricao      String      @db.VarChar(500)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  destaque       Boolean     @default(true)
+  generoId       Int
+  plataforma     String      @default("Indefinido") @db.VarChar(70)
+  admin          Admin?        @relation(fields: [adminId], references: [id])
+  adminId        String?       @db.VarChar(36)
+  avaliacoes     Avaliacao[]
+  fotos          Foto[]
+  genero         Genero      @relation(fields: [generoId], references: [id])
+  @@map("jogos")
+}
+
+model Foto {
+  id        Int    @id @default(autoincrement())
+  descricao String @db.VarChar(30)
+  url       String
+  jogoId    Int
+  jogos     Jogo   @relation(fields: [jogoId], references: [id])
+
+  @@map("fotos")
+}
+
+model Usuario {
+  id         String      @id @default(uuid()) @db.VarChar(36)
+  nome       String      @db.VarChar(60)
+  email      String      @db.VarChar(40) @unique
+  senha      String      @db.VarChar(60)
+  ativo      Boolean     @default(true)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  avaliacoes Avaliacao[]
+
+  @@map("usuarios")
+}
+
+model Avaliacao {
+  id         Int      @id @default(autoincrement())
+  nota       Int      @db.SmallInt
+  comentario String   @db.VarChar(500)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  usuarioId  String   @db.VarChar(36)
+  jogoId     Int
+  resposta   String?  @default("Nenhuma resposta") @db.VarChar(500)
+  aprovada   Boolean? @default(false)
+  jogo       Jogo     @relation(fields: [jogoId], references: [id])
+  usuario    Usuario  @relation(fields: [usuarioId], references: [id])
+  admin       Admin?    @relation(fields: [adminId], references: [id])
+  adminId     String?    @db.VarChar(36)
+  @@map("avaliacoes")
+}
+
+model Admin {
+  id            String   @db.VarChar(36) @id @default(uuid())
+  nome          String   @db.VarChar(60)
+  email         String   @db.VarChar(40)
+  senha         String   @db.VarChar(60)   // senha deve ser varchar(60)
+  nivel         Int      @db.SmallInt @default(2)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  jogos         Jogo[]
+  avaliacoes    Avaliacao[]
+  @@map("admins")
+}
