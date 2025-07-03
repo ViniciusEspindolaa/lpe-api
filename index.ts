@@ -28,7 +28,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // A configuração de CORS deve vir ANTES de app.use(express.json()) e das rotas.
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "http://localhost:3002"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
