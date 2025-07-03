@@ -45,4 +45,8 @@ app.get('/', (req, res) => {
   res.send('API: Review de Jogos')
 })
 
+module.exports = (req, res) => {
+  res.status(200).json({ message: "API está funcionando!" });
+};
+
 export default app; // Adicione no final e remova app.listen()
