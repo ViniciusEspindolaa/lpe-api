@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "dev": "ts-node-dev index.ts",
-  "vercel-build": "npx prisma migrate deploy",
-  "postinstall": "prisma generate",
-  "build": "tsc"
-},
+    "dev": "ts-node-dev src/index.ts",
+    "vercel-build": "npx prisma migrate deploy",
+    "postinstall": "prisma generate",
+    "build": "tsc"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

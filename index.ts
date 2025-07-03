@@ -1,8 +1,8 @@
 // No seu ficheiro src/index.ts da API
 
-import dotenv from 'dotenv'
-dotenv.config()
-import express from 'express'
+// import dotenv from 'dotenv'
+// dotenv.config()
+import express, { Request, Response } from 'express' // 👈 IMPORTE Request e Response
 import cors from 'cors'
 
 // Importe todas as suas rotas
@@ -19,6 +19,12 @@ import routesGeneros from './routes/generos'
 
 const app = express()
 const port = 3001
+
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => {
+    console.log(`🚀 Servidor rodando em http://localhost:${port}`);
+  });
+}
 
 // A configuração de CORS deve vir ANTES de app.use(express.json()) e das rotas.
 app.use(cors({
@@ -41,12 +47,12 @@ app.use("/dashboard", routesDashboard)
 app.use("/generos", routesGeneros)
 
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => { // 👈 TIPOS ADICIONADOS AQUI TAMBÉM
   res.send('API: Review de Jogos')
 })
 
-module.exports = (req, res) => {
+module.exports = (req: Request, res: Response) => { // 👈 TIPOS ADICIONADOS AQUI
   res.status(200).json({ message: "API está funcionando!" });
 };
 
-export default app; // Adicione no final e remova app.listen()
+export default app;
