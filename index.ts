@@ -38,8 +38,8 @@ app.use(express.json());
 // As suas rotas vêm DEPOIS de tudo
 app.use("/jogos", routesJogos)
 app.use("/fotos", routesFotos)
-app.use("/usuarios", routesUsuarios)
 app.use("/usuarios/login", routesLogin)
+app.use("/usuarios", routesUsuarios)
 app.use("/avaliacoes", routesAvaliacoes)
 app.use("/admins", routesAdmins)
 app.use("/admins/login", routesLoginAdmin)
