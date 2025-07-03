@@ -51,8 +51,8 @@ app.get('/', (req: Request, res: Response) => { // 👈 TIPOS ADICIONADOS AQUI T
   res.send('API: Review de Jogos')
 })
 
-module.exports = (req: Request, res: Response) => { // 👈 TIPOS ADICIONADOS AQUI
-  res.status(200).json({ message: "API está funcionando!" });
-};
+// module.exports = (req: Request, res: Response) => { // 👈 TIPOS ADICIONADOS AQUI
+//   res.status(200).json({ message: "API está funcionando!" });
+// };
 
 export default app;
